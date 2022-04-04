@@ -11,3 +11,12 @@ git clone https://github.com/DFW1N/kubernetes-automate.git && cd kubernetes-auto
 chmod +x kubernetes-automate.sh;
 
 ./kubernetes-automate.sh;
+
+---
+
+
+git clone https://github.com/DFW1N/kubernetes-automate.git && cd kubernetes-automate;
+
+chmod +x setup-docker.sh;
+
+./setup-docker.sh;
