@@ -30,6 +30,8 @@ project="Kubernetes Advanced Training"
 #############
 
 resourceGroup="rg-sr-kubernetes-vms-001"
+acrName="registryqjl3186"
+aksClusterName="AKSCluster"
 vmName="kubervm001"
 adminName="adminuser"
 password="un1c0rns@rec00l12345%"
@@ -42,10 +44,18 @@ az group create --name "$resourceGroup" --location "$location" --tags "Owner"="$
 echo -e "${WHITE}Creating Virtual Machine ${GREEN}Kubernetes Open Hack Training${NC}." && echo
 az vm create --resource-group "$resourceGroup" --assign-identity --name "$vmName" --size "Standard_DS2_v2" --admin-username "$adminName" --admin-password "$password" --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest --public-ip-sku "Standard" --public-ip-address "pip-$vmName" --tags "Owner"="$owner" "Project"="$project" "DateCreated"="$date" --output table && echo
 
-# Create Azure Container Registry #
-#echo -e "${WHITE}Creating Azure Container Registry ${GREEN}for the Kubernetes Open Hack Training${NC}." && echo
+# Add Virtual Machine Extension #
+# echo -e "${WHITE}Creating Azure Container Registry ${GREEN}for the Kubernetes Open Hack Training${NC}." && echo
+# az vm extension set --publisher Microsoft.Azure.ActiveDirectory --name AADSSHLoginForLinux --resource-group $resourceGroup --vm-name $vmName
 
-az vm extension set --publisher Microsoft.Azure.ActiveDirectory --name AADSSHLoginForLinux --resource-group $resourceGroup --vm-name $vmName
+# CREATE KUBERNETES CLUSTER #
+echo -e "${WHITE}Creating Kubernetes Cluster for ${GREEN}Kubernetes Open Hack Training${NC}." && echo
+az provider show -n Microsoft.OperationsManagement -o table
+az provider show -n Microsoft.OperationalInsights -o table
+az provider register --namespace Microsoft.OperationsManagement
+az provider register --namespace Microsoft.OperationalInsights
+az aks create --resource-group $resourceGroup --name $aksClusterName --node-count 1 --enable-addons monitoring --attach-acr $acrName
+az aks get-credentials --resource-group $resourceGroup --name $aksClusterName
 
 ###########
 # OUTPUTS #
