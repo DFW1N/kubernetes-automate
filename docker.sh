@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Some aspects of this solution sample may be out of date
+## docker ps -q -a | xargs docker rm -f
+## docker rmi -f $(docker images | grep "^<none>" | awk '{print $3}')
 
 # Registry Name
 registry_name="registryqjl3186"
