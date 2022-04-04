@@ -1,7 +1,6 @@
 #!/bin/bash
 
-## docker ps -q -a | xargs docker rm -f
-## docker rmi -f $(docker images | grep "^<none>" | awk '{print $3}')
+# Some aspects of this solution sample may be out of date
 
 # Registry Name
 registry_name="registryqjl3186"
@@ -56,8 +55,8 @@ sleep 20
 docker logs dataload
 
 ## Docker Build POI
-
-docker build -f Dockerfile_3 -t "tripinsights/poi:1.0" .
+cd ~/containers_artifacts/src/poi && cp ~/containers_artifacts/dockerfiles/Dockerfile_3 ~/containers_artifacts/src/poi
+sudo docker build -f Dockerfile_3 -t "tripinsights/poi:1.0" .
 
 docker run -d \
     --network $dockerEnvironment \
@@ -73,7 +72,7 @@ sudo docker tag tripinsights/poi:1.0 $registry_name.azurecr.io/tripinsights/poi:
 sudo docker push $registry_name.azurecr.io/tripinsights/poi:1.0
 
 ## Docker Build Trips
-
+cd ~/containers_artifacts/src/poi && cp ~/containers_artifacts/dockerfiles/Dockerfile_4 ~/containers_artifacts/src/trips
 sudo docker build -f Dockerfile_4 -t "tripinsights/trips:1.0" .
 
 docker run -d \
@@ -96,6 +95,8 @@ sudo docker tag tripinsights/trips:1.0 $registry_name.azurecr.io/tripinsights/tr
 sudo docker push $registry_name.azurecr.io/tripinsights/trips:1.0
 
 ## Docker Build Java
+cd ~/containers_artifacts/src/user-java && cp ~/containers_artifacts/dockerfiles/Dockerfile_0 ~/containers_artifacts/src/user-java
+sudo docker build -f Dockerfile_0 -t "tripinsights/user-java:1.0" .
 
 docker run -d \
     --network $PROJECT_NAME \
@@ -106,7 +107,12 @@ docker run -d \
     -e "SQL_USER=$sql_username" \
     tripinsights/user-java:1.0 
 
+sudo docker tag tripinsights/user-java:1.0 $registry_name.azurecr.io/tripinsights/user-java:1.0
+sudo docker push $registry_name.azurecr.io/tripinsights/user-java:1.0
+
 ## Docker Build User Profile
+cd ~/containers_artifacts/src/userprofile && cp ~/containers_artifacts/dockerfiles/Dockerfile_2 ~/containers_artifacts/src/userprofile
+sudo docker build -f Dockerfile_2 -t "tripinsights/userprofile:1.0" .
 
 docker run -d \
     --network $PROJECT_NAME \
@@ -116,8 +122,6 @@ docker run -d \
     -e "SQL_SERVER=$sqldbName" \
     -e "SQL_USER=$sql_username" \
     tripinsights/userprofile:1.0
-
- 
 
 docker ps
 
