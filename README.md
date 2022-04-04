@@ -6,6 +6,8 @@ Use the following commands on the virtual machine:
 
 ---
 
+## Install Required Docker and Kubernetes Software
+
 git clone https://github.com/DFW1N/kubernetes-automate.git && cd kubernetes-automate;
 
 chmod +x kubernetes-automate.sh;
@@ -14,6 +16,7 @@ chmod +x kubernetes-automate.sh;
 
 ---
 
+## Setup Docker Container Environment
 
 git clone https://github.com/DFW1N/kubernetes-automate.git && cd kubernetes-automate;
 
