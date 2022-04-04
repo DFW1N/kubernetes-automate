@@ -30,3 +30,7 @@ git clone https://github.com/DFW1N/kubernetes-automate.git && cd kubernetes-auto
 chmod +x docker.sh;
 
 ./docker.sh;
+
+## Setup Azure Kubernetes Cluster
+
+
