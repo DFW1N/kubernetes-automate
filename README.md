@@ -27,6 +27,8 @@ chmod +x kubernetes-automate.sh;
 
 git clone https://github.com/DFW1N/kubernetes-automate.git && cd kubernetes-automate;
 
+ git clone https://github.com/DFW1N/containers_artifacts.git
+
 chmod +x docker.sh;
 
 ./docker.sh;
