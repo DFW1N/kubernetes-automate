@@ -84,13 +84,13 @@ echo -e "${WHITE}Initialize Kubernetes on ${GREEN}Master Node${NC}." && echo
 echo -e "${WHITE}Initialize Pulling SQL Server ${GREEN}Docker Image${NC}." && echo
 sudo docker pull mcr.microsoft.com/mssql/server:2017-latest
 
-echo -e "${WHITE}Clone Microsoft OpenHack ${GREEN}Container Artifacts${NC}." && echo
-git clone https://github.com/Microsoft-OpenHack/containers_artifacts.git
-
 echo -e "${WHITE}Install ${GREEN}kubectx + kubens${NC}." && echo
 sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
 sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
 sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
+
+echo -e "${WHITE}Clone Microsoft OpenHack ${GREEN}Container Artifacts${NC}." && echo
+git clone https://github.com/Microsoft-OpenHack/containers_artifacts.git
 
 ## docker ps -q -a | xargs docker rm -f
 ## docker rmi -f $(docker images | grep "^<none>" | awk '{print $3}')
