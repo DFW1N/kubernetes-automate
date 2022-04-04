@@ -20,6 +20,6 @@ chmod +x kubernetes-automate.sh;
 
 git clone https://github.com/DFW1N/kubernetes-automate.git && cd kubernetes-automate;
 
-chmod +x setup-docker.sh;
+chmod +x docker.sh;
 
-./setup-docker.sh;
+./docker.sh;
